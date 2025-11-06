@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Reciclaje en UTU Paysandú</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Variables de colores basados en cempre.org.uy */
+    :root {
+      --primary-color: #2e7d32;
+      --secondary-color: #4caf50;
+      --accent-color: #ff9800;
+      --light-bg: #f5f5f5;
+      --dark-text: #333;
+      --light-text: #fff;
+      --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      --header-height: 80px;
+    }
+
+    /* GENERAL */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--light-bg);
+      color: var(--dark-text);
+      line-height: 1.6;
+      padding-top: var(--header-height);
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* HEADER MEJORADO */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: var(--primary-color);
+      padding: 15px 40px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      height: var(--header-height);
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .logo {
+      height: 50px;
+      width: auto;
+      filter: brightness(0) invert(1);
+    }
+
+    .logo-text {
+      color: var(--light-text);
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 25px;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav a {
+      text-decoration: none;
+      font-weight: 600;
+      color: var(--light-text);
+      transition: color 0.3s;
+      font-size: 1.1rem;
+      position: relative;
+      padding: 5px 0;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--accent-color);
+      transition: width 0.3s;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    nav a:hover {
+      color: var(--accent-color);
+    }
+
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    /* HERO SECTION */
+    .hero {
+      background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('placa.jpg');
+      background-size: cover;
+      background-position: center;
+      color: white;
+      text-align: center;
+      padding: 100px 20px;
+      margin-bottom: 40px;
+    }
+
+    .hero h1 {
+      font-size: 2.8rem;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .hero p {
+      font-size: 1.3rem;
+      max-width: 800px;
+      margin: 0 auto 30px;
+    }
+
+    /* CONTENT SECTIONS */
+    section {
+      padding: 60px 40px;
+      margin: 30px auto;
+      border-radius: 10px;
+      max-width: 1200px;
+      box-shadow: var(--card-shadow);
+      background-color: white;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    section:nth-child(even) {
+      background-color: #e8f5e9;
+    }
+
+    section h2 {
+      color: var(--primary-color);
+      margin-bottom: 25px;
+      font-size: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    section h2 i {
+      color: var(--secondary-color);
+    }
+
+    .content-img {
+      width: 100%;
+      max-width: 600px;
+      margin: 20px auto;
+      display: block;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    ul {
+      padding-left: 30px;
+      margin: 15px 0;
+    }
+
+    li {
+      margin-bottom: 10px;
+      line-height: 1.8;
+    }
+
+    /* TARJETAS INFORMATIVAS */
+    .info-cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 25px;
+      margin: 30px 0;
+    }
+
+    .info-card {
+      flex: 1 1 300px;
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: var(--card-shadow);
+      transition: transform 0.3s;
+    }
+
+    .info-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .info-card h3 {
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .info-card i {
+      color: var(--accent-color);
+      font-size: 1.5rem;
+    }
+
+    /* GALERÍA DE TARROS */
+    .trash-gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      justify-content: center;
+      margin: 30px 0;
+    }
+
+    .trash-item {
+      flex: 1 1 300px;
+      text-align: center;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: var(--card-shadow);
+    }
+
+    .trash-item img {
+      width: 100%;
+      max-width: 250px;
+      height: 200px;
+      object-fit: cover;
+      margin-bottom: 15px;
+    }
+
+    .trash-item h4 {
+      color: var(--primary-color);
+      margin-bottom: 10px;
+    }
+
+    /* FOOTER MEJORADO */
+    footer {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 40px 0 20px;
+      margin-top: 60px;
+    }
+
+    .footer-content {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      justify-content: space-between;
+      margin-bottom: 30px;
+    }
+
+    .footer-section {
+      flex: 1 1 250px;
+    }
+
+    .footer-section h3 {
+      margin-bottom: 20px;
+      font-size: 1.2rem;
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    .footer-section h3::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 50px;
+      height: 2px;
+      background-color: var(--accent-color);
+    }
+
+    .footer-contact p {
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+    }
+
+    .footer-contact i {
+      margin-right: 10px;
+      color: var(--accent-color);
+    }
+
+    .footer-links a {
+      display: block;
+      color: white;
+      margin-bottom: 10px;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-color);
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .footer-social a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      color: white;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .footer-social a:hover {
+      background: var(--accent-color);
+      transform: translateY(-3px);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* BARRA DE PROGRESO */
+    #progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 4px;
+      background-color: var(--accent-color);
+      width: 0%;
+      z-index: 1001;
+      transition: width 0.25s ease-out;
+    }
+
+    /* BOTÓN VOLVER */
+    .back-button {
+      background-color: var(--accent-color);
+      color: white;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: all 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin: 30px 40px;
+      font-size: 1.1rem;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+    }
+
+    .back-button:hover {
+      background-color: #f57c00;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    /* MEDIA QUERIES */
+    @media (max-width: 900px) {
+      header {
+        padding: 15px 20px;
+      }
+      
+      nav ul {
+        position: fixed;
+        top: var(--header-height);
+        left: 0;
+        right: 0;
+        background-color: var(--primary-color);
+        flex-direction: column;
+        padding: 20px;
+        gap: 15px;
+        clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+        transition: clip-path 0.4s ease;
+      }
+      
+      nav ul.active {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+      }
+      
+      .menu-toggle {
+        display: block;
+      }
+      
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+      
+      .hero p {
+        font-size: 1.1rem;
+      }
+      
+      section {
+        padding: 40px 20px;
+        margin: 20px;
+      }
+
+      .footer-content {
+        flex-direction: column;
+        gap: 30px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .logo-text {
+        display: none;
+      }
+      
+      .hero {
+        padding: 80px 20px;
+      }
+      
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+      
+      .back-button {
+        margin: 20px;
+        padding: 12px 20px;
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Barra de progreso -->
+  <div id="progress-bar"></div>
+
+  <header>
+        <div class="logo-container">
+            <img src="Logo.png" alt="Logo Basura Electrónica" class="logo" 
+                 onerror="this.outerHTML='<div class=\'logo\'>E-Waste </div>'"> </div>
+      <div class="logo-text">Reciclaje en UTU</div>
+    </div>
+    <button class="menu-toggle" id="menu-toggle">
+      <i class="fas fa-bars"></i>
+    </button>
+    <nav>
+      <ul id="nav-menu">
+        <li><a href="#inicio">Inicio</a></li>
+        <li><a href="#puntos">Puntos de Reciclaje</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Botón Volver al Inicio -->
+  <a href="index.html" class="back-button">
+    <i class="fas fa-arrow-left"></i> Volver al Inicio
+  </a>
+
+  <!-- Hero Section -->
+  <div class="hero">
+    <h1>Reciclaje en UTU Paysandú</h1>
+    <p>Descubre cómo nuestra institución promueve el reciclaje y la gestión responsable de residuos</p>
+  </div>
+
+  <section id="inicio">
+    <h2><i class="fas fa-info-circle"></i> Reciclaje en Nuestra Institución</h2>
+    <p>
+      En UTU Paysandú estamos comprometidos con el medio ambiente. Hemos implementado un sistema de reciclaje 
+      que incluye la separación de residuos en diferentes categorías: papel y cartón, plásticos, y residuos no reciclables.
+    </p>
+    <p>
+      Contamos con tarros de basura específicos para cada tipo de material, ubicados en puntos estratégicos 
+      de la institución, con el objetivo de fomentar la participación de estudiantes, docentes y personal administrativo.
+    </p>
+    
+    <div class="info-cards">
+      <div class="info-card">
+        <h3><i class="fas fa-recycle"></i> Nuestra Misión</h3>
+        <p>Promover la conciencia ambiental y la responsabilidad en la gestión de residuos dentro de nuestra comunidad educativa.</p>
+      </div>
+      
+      <div class="info-card">
+        <h3><i class="fas fa-bullseye"></i> Nuestro Objetivo</h3>
+        <p>Reducir la cantidad de residuos que terminan en el vertedero y fomentar la economía circular.</p>
+      </div>
+      
+      <div class="info-card">
+        <h3><i class="fas fa-hand-holding-heart"></i> Compromiso</h3>
+        <p>Involucrar a toda la comunidad educativa en las prácticas de reciclaje y cuidado del medio ambiente.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="puntos">
+    <h2><i class="fas fa-map-marker-alt"></i> Puntos de Reciclaje</h2>
+    <p>
+      Hemos colocado tarros de basura diferenciados por colores en diferentes áreas de la institución:
+    </p>
+    
+    <div class="trash-gallery">
+      <div class="trash-item">
+        <img src="tarro-papel.jpg" alt="Tarro para Papel y Cartón">
+        <h4>Papel y Cartón</h4>
+        <p>Ubicado en el pasillo principal y al subir las escaleras</p>
+      </div>
+      
+      <div class="trash-item">
+        <img src="tarro-plastico.jpg" alt="Tarro para Plásticos">
+        <h4>Plásticos</h4>
+        <p>Ubicado en el pasillo principal y al subir las escaleras</p>
+      </div>
+      
+      <div class="trash-item">
+        <img src="tarro-no-reciclable.jpg" alt="Tarro para No Reciclables">
+        <h4>No Reciclables</h4>
+        <p>Ubicado en el pasillo principal y al subir las escaleras</p>
+      </div>
+    </div>
+    
+    <h3>Ubicaciones específicas:</h3>
+    <ul>
+      <li><strong>Pasillo principal:</strong> Los tres tarros están ubicados juntos para facilitar la separación</li>
+      <li><strong>Al subir las escaleras al segundo piso:</strong> Conjunto de tarros en el rellano</li>
+      <li><strong>Al subir las escaleras al tercer piso:</strong> Conjunto de tarros en el rellano</li>
+    </ul>
+    
+    <p>
+      <strong>Recordá:</strong> Los residuos electrónicos (celulares, cables, pilas, etc.) deben llevarse al punto de acopio especial en la dirección.
+    </p>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>Contacto</h3>
+          <div class="footer-contact">
+            <p><i class="fas fa-map-marker-alt"></i> Sarandi 1138</p>
+            <p><i class="fas fa-phone"></i> 4724 2917 </p>
+            <p><i class="fas fa-envelope"></i> itsp@utu.edu.uy </p>
+          </div>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Enlaces rápidos</h3>
+          <div class="footer-links">
+            <a href="index.html">Página Principal</a>
+            <a href="#inicio">Reciclaje en UTU</a>
+            <a href="#puntos">Puntos de Reciclaje</a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; Proyecto realizado por estudiantes de bachillerato informático - 2025 ITS Paysandú.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Barra de progreso
+      window.onscroll = function() {
+        var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        var scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        var scrollPercent = (scrollTop / scrollHeight) * 100;
+        document.getElementById("progress-bar").style.width = scrollPercent + "%";
+      };
+
+      // Menú móvil
+      const menuToggle = document.getElementById('menu-toggle');
+      const navMenu = document.getElementById('nav-menu');
+      
+      menuToggle.addEventListener('click', function() {
+        navMenu.classList.toggle('active');
+      });
+
+      // Cerrar menú al hacer clic en un enlace
+      const navLinks = document.querySelectorAll('nav a');
+      navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+          navMenu.classList.remove('active');
+        });
+      });
+
+      // Animación de elementos al hacer scroll
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
+
+      const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, observerOptions);
+
+      // Observar todas las secciones
+      document.querySelectorAll('section').forEach(function(section) {
+        observer.observe(section);
+      });
+
+      // Smooth scroll para enlaces internos
+      document.querySelectorAll('nav a').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          e.preventDefault();
+          const targetId = this.getAttribute('href');
+          
+          const targetElement = document.querySelector(targetId);
+          if (targetElement) {
+            const headerHeight = document.querySelector('header').offsetHeight;
+            const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+            
+            window.scrollTo({
+              top: targetPosition,
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>

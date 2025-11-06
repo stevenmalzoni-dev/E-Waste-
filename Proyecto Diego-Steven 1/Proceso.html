@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proceso - Basura Electrónica UTU Paysandú</title>
+  <!-- Agregar FontAwesome para los iconos -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Variables de colores basados en cempre.org.uy */
+    :root {
+      --primary-color: #2e7d32;
+      --secondary-color: #4caf50;
+      --accent-color: #ff9800;
+      --light-bg: #f5f5f5;
+      --dark-text: #333;
+      --light-text: #fff;
+      --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      --header-height: 80px;
+    }
+
+    /* GENERAL */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--light-bg);
+      color: var(--dark-text);
+      line-height: 1.6;
+      padding-top: var(--header-height);
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* HEADER MEJORADO */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: var(--primary-color);
+      padding: 15px 40px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      height: var(--header-height);
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .logo {
+      height: 50px;
+      width: auto;
+      filter: brightness(0) invert(1);
+    }
+
+    .logo-text {
+      color: var(--light-text);
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 25px;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav a {
+      text-decoration: none;
+      font-weight: 600;
+      color: var(--light-text);
+      transition: color 0.3s;
+      font-size: 1.1rem;
+      position: relative;
+      padding: 5px 0;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--accent-color);
+      transition: width 0.3s;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    nav a:hover {
+      color: var(--accent-color);
+    }
+
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    /* HERO SECTION PARA PÁGINA DE PROCESO */
+    .hero {
+      background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('placa.jpg');
+      background-size: cover;
+      background-position: center;
+      color: white;
+      text-align: center;
+      padding: 80px 20px;
+      margin-bottom: 40px;
+    }
+
+    .hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    /* CONTENT SECTIONS */
+    section {
+      padding: 60px 40px;
+      margin: 30px auto;
+      border-radius: 10px;
+      max-width: 1200px;
+      box-shadow: var(--card-shadow);
+      background-color: white;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    section:nth-child(even) {
+      background-color: #e8f5e9;
+    }
+
+    section h2 {
+      color: var(--primary-color);
+      margin-bottom: 25px;
+      font-size: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    section h2 i {
+      color: var(--secondary-color);
+    }
+
+    .content-img {
+      width: 100%;
+      max-width: 600px;
+      margin: 20px auto;
+      display: block;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    ul {
+      padding-left: 30px;
+      margin: 15px 0;
+    }
+
+    li {
+      margin-bottom: 10px;
+      line-height: 1.8;
+    }
+
+    /* TARJETAS INFORMATIVAS PARA PROCESOS */
+    .process-cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 25px;
+      margin: 30px 0;
+    }
+
+    .process-card {
+      flex: 1 1 300px;
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: var(--card-shadow);
+      transition: transform 0.3s;
+      border-top: 4px solid var(--accent-color);
+    }
+
+    .process-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .process-card h3 {
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .process-card i {
+      color: var(--accent-color);
+      font-size: 1.5rem;
+      background: #f5f5f5;
+      padding: 10px;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* FOOTER MEJORADO */
+    footer {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 40px 0 20px;
+      margin-top: 60px;
+    }
+
+    .footer-content {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      justify-content: space-between;
+      margin-bottom: 30px;
+    }
+
+    .footer-section {
+      flex: 1 1 250px;
+    }
+
+    .footer-section h3 {
+      margin-bottom: 20px;
+      font-size: 1.2rem;
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    .footer-section h3::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 50px;
+      height: 2px;
+      background-color: var(--accent-color);
+    }
+
+    .footer-contact p {
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+    }
+
+    .footer-contact i {
+      margin-right: 10px;
+      color: var(--accent-color);
+    }
+
+    .footer-links a {
+      display: block;
+      color: white;
+      margin-bottom: 10px;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-color);
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .footer-social a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      color: white;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .footer-social a:hover {
+      background: var(--accent-color);
+      transform: translateY(-3px);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* BARRA DE PROGRESO */
+    #progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 4px;
+      background-color: var(--accent-color);
+      width: 0%;
+      z-index: 1001;
+      transition: width 0.25s ease-out;
+    }
+
+    /* BOTÓN VOLVER */
+    .back-button {
+      background-color: var(--accent-color);
+      color: white;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: all 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin: 30px 40px;
+      font-size: 1.1rem;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+    }
+
+    .back-button:hover {
+      background-color: #f57c00;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    /* MEDIA QUERIES */
+    @media (max-width: 900px) {
+      header {
+        padding: 15px 20px;
+      }
+      
+      nav ul {
+        position: fixed;
+        top: var(--header-height);
+        left: 0;
+        right: 0;
+        background-color: var(--primary-color);
+        flex-direction: column;
+        padding: 20px;
+        gap: 15px;
+        clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+        transition: clip-path 0.4s ease;
+      }
+      
+      nav ul.active {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+      }
+      
+      .menu-toggle {
+        display: block;
+      }
+      
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+      
+      .hero p {
+        font-size: 1.1rem;
+      }
+      
+      section {
+        padding: 40px 20px;
+        margin: 20px;
+      }
+
+      .footer-content {
+        flex-direction: column;
+        gap: 30px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .logo-text {
+        display: none;
+      }
+      
+      .hero {
+        padding: 80px 20px;
+      }
+      
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+      
+      .back-button {
+        margin: 20px;
+        padding: 12px 20px;
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Barra de progreso -->
+  <div id="progress-bar"></div>
+
+  <header>
+    <div class="logo-container">
+      <img src="Logo.png" alt="Logo Basura Electrónica" class="logo" 
+           onerror="this.style.display='none'; document.querySelector('.logo-text').innerHTML='RAEE UTU'">
+      <div class="logo-text">Recolección RAEE</div>
+    </div>
+    <button class="menu-toggle" id="menu-toggle">
+      <i class="fas fa-bars"></i>
+    </button>
+    <nav>
+      <ul id="nav-menu">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="#entrega">Puntos de Recolección</a></li>
+        <li><a href="#clasificacion">Clasificación y Transporte</a></li>
+        <li><a href="#reciclaje">Reciclaje y Reutilización</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Botón Volver al Inicio -->
+  <a href="index.html" class="back-button">
+    <i class="fas fa-arrow-left"></i> Volver al Inicio
+  </a>
+  
+  <!-- Hero Section para página de proceso -->
+  <div class="hero">
+    <h1>Proceso de Recolección de Residuos Electrónicos</h1>
+    <p>Conoce cada paso de nuestro sistema de gestión responsable de RAEE</p>
+  </div>
+
+  <section id="proceso-intro">
+    <h2><i class="fas fa-cogs"></i> Nuestro Proceso de Gestión</h2>
+    <p>
+      La recolección de basura electrónica es un proceso clave para proteger el ambiente y recuperar materiales útiles. 
+      Comienza con la separación del dispositivo en el hogar, sigue con su entrega en puntos autorizados, y continúa 
+      con el transporte a plantas donde se clasifican, desmontan y reciclan sus partes. Esto evita la contaminación, 
+      reduce residuos peligrosos y fomenta la reutilización de recursos valiosos como metales y componentes electrónicos.
+    </p>
+    
+    <div class="process-cards">
+      <div class="process-card">
+        <h3><i class="fas fa-1"></i> Separación en el hogar</h3>
+        <p>Identificación y clasificación de dispositivos electrónicos en desuso para su correcto tratamiento.</p>
+      </div>
+      
+      <div class="process-card">
+        <h3><i class="fas fa-2"></i> Entrega en puntos de recolección</h3>
+        <p>Depósito de los dispositivos en contenedores especializados ubicados en puntos estratégicos.</p>
+      </div>
+      
+      <div class="process-card">
+        <h3><i class="fas fa-3"></i> Clasificación y transporte</h3>
+        <p>Separación por materiales y transporte seguro a plantas de tratamiento especializadas.</p>
+      </div>
+      
+      <div class="process-card">
+        <h3><i class="fas fa-4"></i> Reciclaje y reutilización</h3>
+        <p>Recuperación de materiales valiosos y tratamiento adecuado de componentes peligrosos.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="separacion">
+    <h2><i class="fas fa-home"></i> 1. Separación en el hogar</h2>
+    <p>
+      El primer paso es identificar qué dispositivos ya no funcionan o han quedado obsoletos, y clasificarlos como residuos electrónicos. 
+      Esto incluye una amplia variedad de aparatos, como cargadores, celulares, computadoras, impresoras, televisores, cámaras y electrodomésticos pequeños. 
+      Reconocer estos elementos es fundamental para iniciar un proceso de reciclaje adecuado, ya que permite separarlos del resto de los residuos 
+      y darles un tratamiento específico que evite daños al medio ambiente y aproveche sus componentes reutilizables.
+    </p>
+    
+    <h3>¿Qué dispositivos separar?</h3>
+    <ul>
+      <li>Teléfonos móviles y tablets</li>
+      <li>Computadoras y laptops</li>
+      <li>Televisores y monitores</li>
+      <li>Electrodomésticos pequeños</li>
+      <li>Cables y accesorios electrónicos</li>
+      <li>Pilas y baterías recargables</li>
+    </ul>
+  </section>
+
+  <section id="entrega">
+    <h2><i class="fas fa-map-marker-alt"></i> 2. Entrega en puntos de recolección</h2>
+    <p>
+      Existen contenedores específicos ubicados en escuelas, municipios o durante campañas de recolección, donde se pueden depositar estos dispositivos electrónicos en desuso. 
+      Estos puntos de acopio están diseñados para recibir este tipo de residuos de forma segura, evitando que terminen en la basura común. 
+      Su correcta utilización facilita el transporte a centros especializados, donde los aparatos serán desmontados, clasificados y reciclados según sus materiales, 
+      contribuyendo así a una gestión responsable y sostenible de la basura electrónica.
+    </p>
+    
+    <h3>Nuestros puntos de recolección:</h3>
+    <ul>
+      <li><strong>Centro Educativo UTU Paysandú:</strong> Av. de las Américas 1234</li>
+      <li><strong>Municipalidad de Paysandú:</strong> Plaza Constitución s/n</li>
+      <li><strong>Centro Comercial Sandú:</strong> Zona Este, Local 15</li>
+      <li><strong>Punto Limpio Móvil:</strong> Consultar fechas y ubicaciones</li>
+    </ul>
+  </section>
+
+  <section id="clasificacion">
+    <h2><i class="fas fa-truck-loading"></i> 3. Clasificación y transporte</h2>
+    <p>
+      Una vez recolectados, los residuos electrónicos se trasladan a plantas especializadas donde son sometidos a un proceso de clasificación minucioso. 
+      Allí, se separan según el tipo de material: plásticos, metales (como cobre, aluminio y hierro), componentes que pueden reutilizarse y elementos peligrosos como baterías o circuitos con sustancias tóxicas. 
+      Esta etapa es clave para garantizar un reciclaje eficiente, reducir el impacto ambiental y recuperar la mayor cantidad posible de materiales valiosos para su reintroducción en la industria.
+    </p>
+    
+    <h3>Proceso de clasificación:</h3>
+    <ul>
+      <li>Recepción y registro de los dispositivos</li>
+      <li>Evaluación inicial del estado y componentes</li>
+      <li>Separación manual de partes reutilizables</li>
+      <li>Extracción de componentes peligrosos</li>
+      <li>Clasificación por tipo de material</li>
+      <li>Preparación para transporte especializado</li>
+    </ul>
+  </section>
+
+  <section id="reciclaje">
+    <h2><i class="fas fa-recycle"></i> 4. Reciclaje y reutilización</h2>
+    <p>
+      Finalmente, los materiales útiles se recuperan y se reutilizan en la fabricación de nuevos productos, lo que ayuda a reducir el uso de recursos naturales. 
+      Al mismo tiempo, los elementos peligrosos, como baterías y componentes con sustancias tóxicas, se tratan con cuidado en instalaciones especializadas 
+      para evitar daños al medio ambiente y proteger la salud pública.
+    </p>
+    
+    <h3>Materiales recuperables:</h3>
+    <ul>
+      <li><strong>Metales preciosos:</strong> Oro, plata, paladio de circuitos impresos</li>
+      <li><strong>Metales base:</strong> Cobre, aluminio, hierro, estaño</li>
+      <li><strong>Plásticos:</strong> Carcasas, componentes internos</li>
+      <li><strong>Vidrio:</strong> Pantallas y monitores</li>
+      <li><strong>Componentes reutilizables:</strong> Memorias, procesadores, motores</li>
+    </ul>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>Contacto</h3>
+          <div class="footer-contact">
+            <p><i class="fas fa-map-marker-alt"></i> Sarandi 1138</p>
+            <p><i class="fas fa-phone"></i> 4724 2917 </p>
+            <p><i class="fas fa-envelope"></i> itsp@utu.edu.uy </p>
+          </div>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Enlaces rápidos</h3>
+          <div class="footer-links">
+            <a href="index.html">Página Principal</a>
+            <a href="proceso.html">Proceso de Reciclaje</a>
+            <a href="#entrega">Puntos de Recolección</a>
+            <a href="#reciclaje">Reciclaje y Reutilización</a>
+          </div>
+        </div>
+  
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; Proyecto realizado por estudiantes de bachillerato informático - 2025 ITS Paysandú.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Barra de progreso
+      window.onscroll = function() {
+        var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        var scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        var scrollPercent = (scrollTop / scrollHeight) * 100;
+        document.getElementById("progress-bar").style.width = scrollPercent + "%";
+      };
+
+      // Menú móvil
+      const menuToggle = document.getElementById('menu-toggle');
+      const navMenu = document.getElementById('nav-menu');
+      
+      menuToggle.addEventListener('click', function() {
+        navMenu.classList.toggle('active');
+      });
+
+      // Cerrar menú al hacer clic en un enlace
+      const navLinks = document.querySelectorAll('nav a');
+      navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+          navMenu.classList.remove('active');
+        });
+      });
+
+      // Animación de elementos al hacer scroll
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
+
+      const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, observerOptions);
+
+      // Observar todas las secciones
+      document.querySelectorAll('section').forEach(function(section) {
+        observer.observe(section);
+      });
+
+      // Smooth scroll para enlaces internos
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          e.preventDefault();
+          const targetId = this.getAttribute('href');
+          if (targetId === '#') return;
+          
+          const targetElement = document.querySelector(targetId);
+          if (targetElement) {
+            const headerHeight = document.querySelector('header').offsetHeight;
+            const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+            
+            window.scrollTo({
+              top: targetPosition,
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
